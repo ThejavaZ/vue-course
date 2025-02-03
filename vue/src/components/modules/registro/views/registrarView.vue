@@ -5,6 +5,7 @@
       <div class="form">
         <label for="">Nombre:</label>
         <Field
+          v-model="nombre"
           type="text"
           name="nombre"
           id=""
@@ -15,7 +16,13 @@
       <br />
       <div class="form">
         <label for="email">Email:</label>
-        <Field type="email" name="email" id="" placeholder="ingrese su email" />
+        <Field
+          v-model="email"
+          type="email"
+          name="email"
+          id=""
+          placeholder="ingrese su email"
+        />
         <ErrorMessage name="email" />
       </div>
       <br />
@@ -29,8 +36,16 @@
 <script setup>
 import { Form, Field, ErrorMessage } from "vee-validate";
 import { schema } from "../schemas/validationSchema";
+import { useRegistrarStore } from "../stores/registrarStore";
+import { ref } from "vue";
+
+const registrarStore = useRegistrarStore();
+
+const nombre = ref("");
+const email = ref("");
 
 const onSubmit = () => {
+  registrarStore.guardarRegistro(nombre.value, email.value);
   console.log("se ha enviado el formulario");
 };
 </script>
